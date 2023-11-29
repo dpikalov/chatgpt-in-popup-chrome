@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <title> ChatGPT in Popup </title>
+
+  <style type=text/css>
+    body {
+      width : 600px !important;
+      height: 640px !important;
+      margin: -40px;
+    }
+    iframe {
+      position:fixed;
+      height: calc(100vh / 0.9);
+      width : calc(100vw / 0.9);
+      left  : calc(100%  * (1 - 1/0.9) / 2);
+      top   : calc(100%  * (1 - 1/0.9) / 2);
+      transform: scale( 0.9 );
+      border: none;
+    }
+  </style>
+
+<body>
+  <iframe src="https://chat.openai.com/"> </iframe>
+</body>
+
+</html>

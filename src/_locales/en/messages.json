@@ -1,0 +1,11 @@
+{
+  "manifest_name": {
+    "message": "ChatGPT In Popup"
+  },
+  "manifest_description": {
+    "message": "Show ChatGPT in popup window. This extension doens't have any JS code - it's safe to use."
+  },
+  "manifest_title": {
+    "message": "ChatGPT in Popup window"
+  }
+}
