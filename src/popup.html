@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
+
+  <!--script src="popup.js"></script-->
+
   <title> ChatGPT in Popup </title>
 
   <style type=text/css>
     body {
-      width : 600px !important;
-      height: 640px !important;
+      width : 720px !important;
+      height: 560px !important;
       margin: -40px;
     }
     iframe {
@@ -17,10 +20,19 @@
       transform: scale( 0.9 );
       border: none;
     }
+    overlay {
+      display: block;
+      height :100%;
+      width  :100%;
+      background: black;
+      opacity: 0.05;
+      pointer-events: none;
+    }
   </style>
 
 <body>
-  <iframe src="https://chat.openai.com/"> </iframe>
+  <iframe id="frame" src="https://chat.openai.com/"> </iframe>
+  <overlay/>
 </body>
 
 </html>

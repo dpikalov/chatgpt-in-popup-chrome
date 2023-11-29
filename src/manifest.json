@@ -14,7 +14,7 @@
   },
 
   "permissions": [
-    "declarativeNetRequest"
+    "declarativeNetRequest", "storage"
   ],
 
   "host_permissions": [
