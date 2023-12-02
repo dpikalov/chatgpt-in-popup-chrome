@@ -1,7 +1,3 @@
-<style>
-  img { box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .2); }
-</style>
-
 # chatgpt-in-popup-chrome
 
 This chrome-extenshon opens **https://chat.openai.com/** in Popup page
