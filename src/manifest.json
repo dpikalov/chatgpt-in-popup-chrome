@@ -18,7 +18,7 @@
   ],
 
   "host_permissions": [
-    "*://*.openai.com/*"
+    "*://*.chatgpt.com/*"
   ],
 
   "declarative_net_request" : {
