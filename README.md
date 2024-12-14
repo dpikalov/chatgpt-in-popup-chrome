@@ -1,6 +1,6 @@
 # chatgpt-in-popup-chrome
 
-This chrome-extenshon opens **https://chat.openai.com/** in Popup page
+This chrome-extenshon opens **https://chat.openai.com/** in ~~Popup page~~ Side Panel
 
 No JS code inside
 

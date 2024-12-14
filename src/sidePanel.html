@@ -5,14 +5,9 @@
 
   <style type=text/css>
     :root {
-      --scale: 0.85;
+      --scale: 1;
     }
-    body {
-      width : 700px !important;
-      height: 500px !important;
-      margin: 0px;
-      overflow:hidden;
-    }
+
     iframe {
       position: fixed;
       height: calc(100vh / var(--scale));
@@ -21,21 +16,20 @@
       top   : calc(100%  * (1 - 1/var(--scale)) / 2);
       transform: scale( var(--scale) );
       border: none;
-      _margin: 0 40px 40px 0;
     }
-    overlay {
-      display: block;
-      height :100%;
-      width  :100%;
-      _background: black;
-      _opacity: 0.05;
-      pointer-events: none;
+
+    iframe {
+      filter: brightness(96%) blur(5px);
     }
+
+    iframe:hover {
+      filter: brightness(96%) blur(0px);
+    }
+
   </style>
 
 <body>
   <iframe id="iframe" src="https://chatgpt.com"> </iframe>
-  <overlay/>
 </body>
 
 </html>
