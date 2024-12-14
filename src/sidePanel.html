@@ -3,6 +3,8 @@
 
   <title> ChatGPT in Popup </title>
 
+  <script src="sidepanel.js"></script>
+
   <style type=text/css>
     :root {
       --scale: 1;
@@ -19,6 +21,7 @@
     }
 
     iframe {
+      transition: filter .3s;
       filter: brightness(96%) blur(5px);
     }
 
@@ -29,7 +32,7 @@
   </style>
 
 <body>
-  <iframe id="iframe" src="https://chatgpt.com"> </iframe>
+  <iframe id="iframe" src="https://chatgpt.com" allow="clipboard-read; clipboard-write"> </iframe>
 </body>
 
 </html>
