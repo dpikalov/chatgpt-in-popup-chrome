@@ -8,12 +8,13 @@
   <style type=text/css>
     :root {
       --scale: 1;
+      --border: 1px;
     }
 
     iframe {
       position: fixed;
-      height: calc(100vh / var(--scale));
-      width : calc(100vw / var(--scale));
+      height: calc(100% / var(--scale));
+      width : calc(100% / var(--scale));
       left  : calc(100%  * (1 - 1/var(--scale)) / 2);
       top   : calc(100%  * (1 - 1/var(--scale)) / 2);
       transform: scale( var(--scale) );
@@ -22,11 +23,11 @@
 
     iframe {
       transition: filter .3s;
-      filter: brightness(96%) blur(5px);
+      filter: brightness(1) blur(10px);
     }
 
     iframe:hover {
-      filter: brightness(96%) blur(0px);
+      filter: brightness(.96) blur(0px);
     }
 
   </style>
