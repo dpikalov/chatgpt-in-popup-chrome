@@ -21,6 +21,23 @@
     "openPanelOnActionClick": true
   },
 
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "all_frames": true,
+      "js": ["content.js"]
+    }
+  ],
+
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E"
+      },
+      "description": "Open my extension"
+    }
+  },
+
   "host_permissions": [
     "*://*.chatgpt.com/*"
   ],
