@@ -4,9 +4,9 @@
     el.style.display = el.style.display == 'none' ? 'block' : 'none';
   });
   // mobile
-  document.querySelectorAll('div[role=dialog]')?.forEach?.(el => {
-    el.style.display = el.style.display == 'none' ? 'block' : 'none';
-  });
+  //document.querySelectorAll('div[role=dialog]')?.forEach?.(el => {
+  //  el.style.display = el.style.display == 'none' ? 'block' : 'none';
+  //});
 }
 
 // ctrl+k
@@ -33,4 +33,4 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//setTimeout(toggleSidePanel, 200)
+setTimeout(toggleSidePanel, 200)
