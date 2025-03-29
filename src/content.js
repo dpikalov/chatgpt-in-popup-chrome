@@ -25,12 +25,16 @@ document.addEventListener('keydown', function(e) {
 });
 
 
-// TBD ctrl+enter
+// ctrl+enter
 document.addEventListener('keydown', function (e) {
   if (e.ctrlKey && e.key === 'Enter') {
-    e.preventDefault(); // Предотвращаем стандартное действие
-    alert('Ctrl + Enter обработан!');
+    const btn = document.querySelectorAll('button[data-testid=send-button]')?.[0]
+    if (btn) {
+      btn.click();
+      e.preventDefault();
+      e.stopPropagation()
+    }
   }
-});
+}, true);
 
 setTimeout(toggleSidePanel, 200)
