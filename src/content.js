@@ -1,10 +1,51 @@
-﻿const toggleSidePanel = () => {
+﻿const click = (selector) => {
+  document.querySelectorAll(selector).forEach(el => { el.click() })
+}
+
+const toggleSidePanel = () => {
   // desktop
-  document.querySelectorAll('.z-\\[21\\]')?.forEach(el => {
+  document.querySelectorAll('.z-\\[21\\]').forEach(el => {
     el.style.display = el.style.display == 'none' ? 'block' : 'none';
   });
+
   // mobile
-  //document.querySelectorAll('div[role=dialog]')?.forEach?.(el => {
+  click('[data-testid=open-sidebar-button]')
+
+  /*
+  document.querySelectorAll('div[data-state=open].fixed').forEach(el => {
+    el.style.display = el.style.display == 'none' ? 'block' : 'none';
+  })
+
+  document.querySelectorAll('div[data-state=open][role=dialog]').forEach(el => {
+    el.style.display = el.style.display == 'none' ? 'block' : 'none';
+  })
+  */
+
+  //document.querySelectorAll('div[data-state=open]').forEach(el => {
+  //  el.style.display = wasHidden ? 'block' : 'none';
+  //})
+
+  //document.querySelectorAll('[data-testid=close-sidebar-button]').forEach(el => {
+  //  wasHidden || click('[data-testid=close-sidebar-button]')
+  //})
+
+  //document.querySelectorAll('[data-testid=open-sidebar-button]').forEach(el => {
+  //  wasHidden && el.click()
+  //})
+
+  //document.querySelectorAll('[data-state=open]').forEach(el => {
+    //el.remove()
+  //  el.e.setAttribute('data-state', 'closed')
+  //})
+
+  //document.querySelectorAll('[data-state=closed]').forEach(el => {
+    //el.remove()
+  //  el.e.setAttribute('data-state', 'open')
+  //})
+
+  document.body.style.pointerEvents = 'unset';
+
+  //document.querySelectorAll('nav')?.forEach?.(el => {
   //  el.style.display = el.style.display == 'none' ? 'block' : 'none';
   //});
 }
