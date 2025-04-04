@@ -4,7 +4,8 @@
 
 const toggleSidePanel = () => {
   // desktop
-  document.querySelectorAll('.z-\\[21\\]').forEach(el => {
+  //document.querySelectorAll('.z-\\[21\\]').forEach(el => {
+  document.querySelectorAll('.z-21').forEach(el => {
     el.style.display = el.style.display == 'none' ? 'block' : 'none';
   });
 
