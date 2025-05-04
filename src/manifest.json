@@ -25,7 +25,7 @@
     {
       "matches": ["https://chatgpt.com/*"],
       "all_frames": true,
-      "js": ["content.js"]
+      "js": ["content.js", "content-bulk-delete.js"]
     }
   ],
 

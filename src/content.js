@@ -67,6 +67,16 @@ document.addEventListener('keydown', function(e) {
 });
 
 
+// ctrl+b
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && ['D', 'd', 'В', 'в'].includes(e.key)) {
+    e.preventDefault();
+
+    // TBD Not fully implemented    
+    confirm('Delete marked chats?') && console.log('deleteMarked', deleteMarked)
+  }
+});
+
 // ctrl+enter
 document.addEventListener('keydown', function (e) {
   if (e.ctrlKey && e.key === 'Enter') {
@@ -79,4 +89,4 @@ document.addEventListener('keydown', function (e) {
   }
 }, true);
 
-setTimeout(toggleSidePanel, 200)
+//setTimeout(toggleSidePanel, 200)
