@@ -13,7 +13,7 @@
   },
 
   "permissions": [
-    "declarativeNetRequest", "storage", "sidePanel", "activeTab", "clipboardRead", "clipboardWrite"
+    "declarativeNetRequest", "storage", "sidePanel", "activeTab", "clipboardRead", "clipboardWrite", "scripting"
   ],
 
   "side_panel": {
@@ -25,7 +25,14 @@
     {
       "matches": ["https://chatgpt.com/*"],
       "all_frames": true,
-      "js": ["content.js", "content-bulk-delete.js"]
+      "js": ["content.js"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["content-inject.js", "content-inject-1.js"],
+      "matches": ["https://chatgpt.com/*"]
     }
   ],
 
