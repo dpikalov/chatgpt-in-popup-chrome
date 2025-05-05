@@ -21,7 +21,7 @@ const deleteMarked = async () => {
 
   for (let id of list) {
     await removeChat(id)
-    console.log(`deleting chat: ${id}`)
+    //console.log(`deleting chat: ${id}`)
   }
 
   location.reload();
@@ -60,10 +60,6 @@ style.textContent = `
 document.head.appendChild(style)
 */
 function showDeleteButton(el) {
-    //const el = document.querySelector(selector);
-    //const title = el.getAttribute('title');
-    //el.removeAttribute('title');
-
     const btn = document.querySelector('#bulk-delete-button')
     btn?.remove()
 
@@ -88,7 +84,6 @@ function showDeleteButton(el) {
 }
 
 // Redefine fetch
-//document.addEventListener('DOMContentLoaded', function () {
 (function() {
   const originalFetch = window.fetch;
   window.fetch = async (...args) => {

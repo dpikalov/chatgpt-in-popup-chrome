@@ -67,23 +67,6 @@ document.addEventListener('keydown', function(e) {
 });
 
 
-/* ctrl+d
-document.addEventListener('keydown', function(e) {
-  if ((e.ctrlKey || e.metaKey) && ['D', 'd', 'В', 'в'].includes(e.key)) {
-    e.preventDefault();
-
-    // TBD Not fully implemented    
-    if (confirm('Delete marked chats?')) {
-      //deleteMarked().catch(e => alert(e))
-      const script = document.createElement('script');
-      script.src = chrome.runtime.getURL('content-inject-1.js');
-      script.onload = () => script.remove();
-      (document.head || document.documentElement).appendChild(script);
-    }
-  }
-});
-*/
-
 // ctrl+enter
 document.addEventListener('keydown', function (e) {
   if (e.ctrlKey && e.key === 'Enter') {
