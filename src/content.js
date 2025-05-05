@@ -79,8 +79,13 @@ document.addEventListener('keydown', function (e) {
   }
 }, true);
 
-//setTimeout(toggleSidePanel, 200)
-const script = document.createElement('script');
-script.src = chrome.runtime.getURL('content-inject.js');
-script.onload = () => script.remove();
-(document.head || document.documentElement).appendChild(script);
+//
+const loadScript = (url) => {
+  const script = document.createElement('script');
+  script.src = chrome.runtime.getURL(url);
+  script.onload = () => script.remove();
+  (document.head || document.documentElement).appendChild(script);
+}
+
+loadScript('umbrella.js')
+loadScript('content-inject.js')

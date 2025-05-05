@@ -17,11 +17,11 @@ const deleteMarked = async () => {
   }
 
   const list = [...document.querySelectorAll('[marked-to-delete=yes]')]
-    .map(e => e.getAttribute('href').slice(3))
+    .map(e => e.getAttribute('href')?.split('/').pop())
 
   for (let id of list) {
     await removeChat(id)
-    //console.log(`deleting chat: ${id}`)
+    //alert(`deleting chat: ${id}`)
   }
 
   location.reload();
@@ -30,7 +30,7 @@ const deleteMarked = async () => {
 //
 document.body.addEventListener('contextmenu', function(e) {
   const a = e.target.parentElement;
-  if (!a.matches('a[href^="/c/"]')) {
+  if (!a.matches('a[href*="/c/"]')) {
     return true;
   }
 
