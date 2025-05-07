@@ -87,5 +87,5 @@ const loadScript = (url) => {
   (document.head || document.documentElement).appendChild(script);
 }
 
-loadScript('umbrella.js')
+loadScript('jquery.min.js')
 loadScript('content-inject.js')

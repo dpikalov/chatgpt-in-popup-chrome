@@ -31,7 +31,7 @@
 
   "web_accessible_resources": [
     {
-      "resources": ["umbrella.js", "content-inject.js"],
+      "resources": ["content-inject.js"],
       "matches": ["https://chatgpt.com/*"]
     }
   ],
