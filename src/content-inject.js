@@ -11,18 +11,21 @@
 
 (function () {
 
-  let myAuthHeader = undefined;
+  let httpAuthHeader = undefined;
 
   //
   const getMarkedChatIds = () => {
-    return [...document.querySelectorAll('[marked-to-delete=yes]')]
-      .map(e => e.getAttribute('href')?.split('/').pop())
+    return [...document.querySelectorAll('[extgpt-marked-to-delete=yes]')].map(e =>
+      e.getAttribute('href')?.split('/').pop()
+    )
   }
 
   //
   const resetMarkedChats = () => {
-    [...document.querySelectorAll('[marked-to-delete=yes]')]
-      .map(e => e.setAttribute('marked-to-delete', ''))
+    [...document.querySelectorAll('[extgpt-marked-to-delete=yes]')].map(e => {
+      e.style.backgroundColor = '';
+      e.removeAttribute('extgpt-marked-to-delete')
+    })
     tobleDeleteButton(undefined, 0)
   }
 
@@ -37,7 +40,7 @@
       const url = `https://chatgpt.com/backend-api/conversation/${id}`
       const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `${myAuthHeader}`
+        'Authorization': `${httpAuthHeader}`
       }
       const body = JSON.stringify({ is_visible: false })
       //alert(`deleting chat: ${id}`)
@@ -53,12 +56,12 @@
 
   //
   function tobleDeleteButton(forElement, count) {
-      document.querySelector('#bulk-delete-button')?.remove()
+      document.querySelector('#extgpt-delete-button')?.remove()
 
       if (!count || !forElement) return;
 
       const tooltip = document.createElement('div');
-      tooltip.setAttribute('id', 'bulk-delete-button');
+      tooltip.setAttribute('id', 'extgpt-delete-button');
       tooltip.textContent = `Click HERE to delete ${count} chats`;
       tooltip.style.position = 'absolute';
       tooltip.style.top = (forElement.getBoundingClientRect().bottom - 32) + 'px';
@@ -83,12 +86,12 @@
       return true;
     }
 
-    if (a.getAttribute('marked-to-delete') !== 'yes') {
+    if (a.getAttribute('extgpt-marked-to-delete') !== 'yes') {
       a.style.backgroundColor = 'rgba(255, 192, 203, 0.4)';
-      a.setAttribute('marked-to-delete', 'yes');
+      a.setAttribute('extgpt-marked-to-delete', 'yes');
     } else {
       a.style.backgroundColor = ''
-      a.removeAttribute('marked-to-delete');
+      a.removeAttribute('extgpt-marked-to-delete');
     }
 
     tobleDeleteButton(a, getMarkedChatIds().length)
@@ -108,11 +111,10 @@
       const headers = options.headers || {};
 
       if (headers.Authorization || headers.authorization) {
-        myAuthHeader = headers.Authorization || headers.authorization;
+        httpAuthHeader = headers.Authorization || headers.authorization;
       }
 
       return response;
     };
   })();
 })();
-
