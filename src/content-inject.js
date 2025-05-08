@@ -1,24 +1,24 @@
 ﻿;(function () {
   let httpAuthHeader = undefined;
 
-  // Add CSS
+  // Custom CSS styles
   const style = document.createElement('style');
   style.textContent = ``;
-  style.textContent = `.mark { background-color: rgba(255, 192, 203, 0.4) !important; }`;
+  style.textContent = `.hw-marked { background-color: rgba(255, 192, 203, 0.4) !important; }`;
   document.head.appendChild(style)
 
   //
   const updateDeleteButton = (forElement) => {
-      document.querySelector('#todo-button')?.remove()
+      document.querySelector('#hw-delete-btn')?.remove()
 
       const chatIds = () =>
-        [...document.querySelectorAll('.mark')].map(e => e.getAttribute('href').split('/').pop())
+        [...document.querySelectorAll('.hw-marked')].map(e => e.getAttribute('href').split('/').pop())
 
       const count = chatIds().length
       if (!count || !forElement) return;
 
       const tooltip = document.createElement('div');
-      tooltip.setAttribute('id', 'todo-button');
+      tooltip.setAttribute('id', 'hw-delete-btn');
       tooltip.textContent = `Click HERE to delete ${count} chats`;
       tooltip.style.position = 'absolute';
       tooltip.style.top = (forElement.getBoundingClientRect().bottom - 32) + 'px';
@@ -59,12 +59,18 @@
     const a = e.target.parentElement;
     if (!a.matches('a[href*="/c/"]')) return true;
 
-    a.classList.toggle('mark');
+    a.classList.toggle('hw-marked');
     updateDeleteButton(a);
 
     e.preventDefault();
     return false;
   }, true);
+
+  // Unmark chats and hide bitton on click
+  document.body.addEventListener('click', function(e) {
+    [...document.querySelectorAll('.hw-marked')].map(e => e.classList.toggle('hw-marked'))
+    updateDeleteButton();
+  });
 
   // Override fetch()
   (function() {
