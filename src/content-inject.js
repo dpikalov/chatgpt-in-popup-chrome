@@ -1,67 +1,24 @@
-﻿/*
-  blur chat titles
-  const style = document.createElement('style');
-  style.textContent = `
-    a[href^="/c/"] {
-      filter: blur(2px);
-    }
-  `;
-  document.head.appendChild(style)
-*/
-
-(function () {
-
+﻿;(function () {
   let httpAuthHeader = undefined;
 
-  //
-  const getMarkedChatIds = () => {
-    return [...document.querySelectorAll('[extgpt-marked-to-delete=yes]')].map(e =>
-      e.getAttribute('href')?.split('/').pop()
-    )
-  }
+  // Add CSS
+  const style = document.createElement('style');
+  style.textContent = ``;
+  style.textContent = `.mark { background-color: rgba(255, 192, 203, 0.4) !important; }`;
+  document.head.appendChild(style)
 
   //
-  const resetMarkedChats = () => {
-    [...document.querySelectorAll('[extgpt-marked-to-delete=yes]')].map(e => {
-      e.style.backgroundColor = '';
-      e.removeAttribute('extgpt-marked-to-delete')
-    })
-    tobleDeleteButton(undefined, 0)
-  }
+  const updateDeleteButton = (forElement) => {
+      document.querySelector('#todo-button')?.remove()
 
-  //
-  const deleteChats = async (chatIds) => {
-    if (!confirm('Delete marked chats?')) {
-      resetMarkedChats();
-      return;
-    }
+      const chatIds = () =>
+        [...document.querySelectorAll('.mark')].map(e => e.getAttribute('href').split('/').pop())
 
-    const deleteOne = (id) => {
-      const url = `https://chatgpt.com/backend-api/conversation/${id}`
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `${httpAuthHeader}`
-      }
-      const body = JSON.stringify({ is_visible: false })
-      //alert(`deleting chat: ${id}`)
-      return fetch(url, { method: 'PATCH', headers, body })
-    }
-
-    for (let id of chatIds) {
-      await deleteOne(id)
-    }
-
-    location.reload();
-  }
-
-  //
-  function tobleDeleteButton(forElement, count) {
-      document.querySelector('#extgpt-delete-button')?.remove()
-
+      const count = chatIds().length
       if (!count || !forElement) return;
 
       const tooltip = document.createElement('div');
-      tooltip.setAttribute('id', 'extgpt-delete-button');
+      tooltip.setAttribute('id', 'todo-button');
       tooltip.textContent = `Click HERE to delete ${count} chats`;
       tooltip.style.position = 'absolute';
       tooltip.style.top = (forElement.getBoundingClientRect().bottom - 32) + 'px';
@@ -73,34 +30,43 @@
       tooltip.style.zIndex = 10_000;
       tooltip.style.fontSize = '12px';
       tooltip.style.cursor = 'pointer';
-      tooltip.onclick = () => deleteChats(getMarkedChatIds());
+
+      tooltip.onclick = async () => {
+        for (let id of chatIds()) {
+          tooltip.textContent = `Deleting chat... ${id}`
+          await deleteChat(id);
+        }
+        location.reload();
+      }
 
       document.body.style.pointerEvents = 'unset';
       document.body.appendChild(tooltip);
   }
 
-  // mark/unmark chat
+  //
+  const deleteChat = async (id) => {
+    const url = `https://chatgpt.com/backend-api/conversation/${id}`
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `${httpAuthHeader}`
+    }
+    const body = JSON.stringify({ is_visible: false })
+    return fetch(url, { method: 'PATCH', headers, body })
+  }
+
+  // Toggle chat by right-click
   document.body.addEventListener('contextmenu', function(e) {
     const a = e.target.parentElement;
-    if (!a.matches('a[href*="/c/"]')) {
-      return true;
-    }
+    if (!a.matches('a[href*="/c/"]')) return true;
 
-    if (a.getAttribute('extgpt-marked-to-delete') !== 'yes') {
-      a.style.backgroundColor = 'rgba(255, 192, 203, 0.4)';
-      a.setAttribute('extgpt-marked-to-delete', 'yes');
-    } else {
-      a.style.backgroundColor = ''
-      a.removeAttribute('extgpt-marked-to-delete');
-    }
-
-    tobleDeleteButton(a, getMarkedChatIds().length)
+    a.classList.toggle('mark');
+    updateDeleteButton(a);
 
     e.preventDefault();
     return false;
   }, true);
 
-  // override fetch()
+  // Override fetch()
   (function() {
     const originalFetch = window.fetch;
     window.fetch = async (...args) => {
@@ -113,7 +79,6 @@
       if (headers.Authorization || headers.authorization) {
         httpAuthHeader = headers.Authorization || headers.authorization;
       }
-
       return response;
     };
   })();
