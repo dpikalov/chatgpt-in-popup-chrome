@@ -4,7 +4,14 @@
   // Custom CSS styles
   const style = document.createElement('style');
   style.textContent = ``;
-  style.textContent = `.hw-marked { background-color: rgba(255, 192, 203, 0.4) !important; }`;
+  style.textContent = `
+    .hw-marked {
+      background-color: rgba(255, 192, 203, 0.4) !important;
+    }
+    #hw-delete-btn {
+      outline: 1px solid grey;
+      margin-left: 8px;
+    }`;
   document.head.appendChild(style)
 
   //
