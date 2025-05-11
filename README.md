@@ -8,7 +8,7 @@ This Chrome extension opens **https://chat.openai.com/** in the Side Panel and a
 
 ## Usage
 
-`Ctrl+B` toggle side-panel  
+`Ctrl+B` toggle Chats Panel  
 `Ctrl+K` search  
 `Right-click` chats to select and delete them all at once  
 
