@@ -7,7 +7,8 @@ This chrome-extenshon opens **https://chat.openai.com/** in ~~Popup page~~ Side 
 ## Usage
 
 `Ctrl+B` toggle side-panel  
-`Ctrl+K` search
+`Ctrl+K` search  
+`Right-click` chats to select and delete them all at once  
 
 ## How to install it in Chrome
 - Clone the  repo
