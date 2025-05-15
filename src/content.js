@@ -58,14 +58,13 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// ctrl+b
+// toggle sidepanel on: ctrl+b
 document.addEventListener('keydown', function(e) {
   if ((e.ctrlKey || e.metaKey) && ['B', 'b', 'И', 'и'].includes(e.key)) {
     e.preventDefault();
     toggleSidePanel();
   }
 });
-
 
 // ctrl+enter
 document.addEventListener('keydown', function (e) {
@@ -77,7 +76,13 @@ document.addEventListener('keydown', function (e) {
       e.stopPropagation()
     }
   }
-}, true);
+});  
+
+// toggle sidepanel on: ctrl + click on main
+//document.getElementsByTagName('main')[0]?.addEventListener('click', function (e) {
+document.body.addEventListener('click', function (e) {
+  e.ctrlKey && toggleSidePanel();
+});
 
 //
 const loadScript = (url) => {
@@ -87,5 +92,4 @@ const loadScript = (url) => {
   (document.head || document.documentElement).appendChild(script);
 }
 
-loadScript('jquery.min.js')
 loadScript('content-inject.js')
