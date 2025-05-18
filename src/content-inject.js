@@ -15,39 +15,19 @@
   document.head.appendChild(style)
 
   //
-  const updateDeleteButton = (forElement) => {
-      document.querySelector('#hw-delete-btn')?.remove()
+  const getMarkedChatIds = () => {
+    return [...document.querySelectorAll('.hw-marked')].map(e =>
+      e.getAttribute('href').split('/').pop()
+    )
+  }
 
-      const chatIds = () =>
-        [...document.querySelectorAll('.hw-marked')].map(e => e.getAttribute('href').split('/').pop())
-
-      const count = chatIds().length
-      if (!count || !forElement) return;
-
-      const tooltip = document.createElement('div');
-      tooltip.setAttribute('id', 'hw-delete-btn');
-      tooltip.textContent = `Click HERE to delete ${count} chats`;
-      tooltip.style.position = 'absolute';
-      tooltip.style.top = (forElement.getBoundingClientRect().bottom - 32) + 'px';
-      tooltip.style.left = forElement.getBoundingClientRect().right + 'px';
-      tooltip.style.background = '#000';
-      tooltip.style.color = '#fff';
-      tooltip.style.padding = '5px';
-      tooltip.style.borderRadius = '4px';
-      tooltip.style.zIndex = 10_000;
-      tooltip.style.fontSize = '12px';
-      tooltip.style.cursor = 'pointer';
-
-      tooltip.onclick = async () => {
-        for (let id of chatIds()) {
-          tooltip.textContent = `Deleting chat... ${id}`
-          await deleteChat(id);
-        }
-        location.reload();
-      }
-
-      document.body.style.pointerEvents = 'unset';
-      document.body.appendChild(tooltip);
+  //
+  const deleteMarkedChats = async () => {
+    for (let id of getMarkedChatIds()) {
+      updateDeleteButton(undefined, `Deleting chat: ${id}`)
+      await deleteChat(id);
+    }
+    location.reload();
   }
 
   //
@@ -61,19 +41,57 @@
     return fetch(url, { method: 'PATCH', headers, body })
   }
 
+  //
+  const updateDeleteButton = (forElement, title) => {
+      if (!title) {
+        document.querySelector('#hw-delete-btn')?.remove()
+        return;
+      }
+
+      let button = document.querySelector('#hw-delete-btn')
+      if (button == undefined) {
+        button = document.createElement('div');
+        button.setAttribute('id', 'hw-delete-btn');
+        button.style.position = 'absolute';
+        button.style.background = '#000';
+        button.style.color = '#fff';
+        button.style.padding = '5px';
+        button.style.borderRadius = '4px';
+        button.style.zIndex = 10_000;
+        button.style.fontSize = '12px';
+        button.style.cursor = 'pointer';
+        button.addEventListener('click', function(e) {
+          deleteMarkedChats();
+          e.stopPropagation()
+        })
+
+        document.body.style.pointerEvents = 'unset';
+        document.body.appendChild(button);
+      }
+
+      if (forElement) {
+        button.style.top = (forElement.getBoundingClientRect().bottom - 32) + 'px';
+        button.style.left = forElement.getBoundingClientRect().right + 'px';
+      }
+
+      button.textContent = title;
+  }
+
   // Toggle chat by right-click
   document.body.addEventListener('contextmenu', function(e) {
     const a = e.target.parentElement;
-    if (!a.matches('a[href*="/c/"]')) return true;
+    if (!a.matches('a[href*="/c/"]'))
+      return true;
 
     a.classList.toggle('hw-marked');
-    updateDeleteButton(a);
+    const count = getMarkedChatIds().length;
+    const title = count ? `Click HERE to delete ${count} chats` : undefined
+    updateDeleteButton(a, title);
 
     e.preventDefault();
-    return false;
   }, true);
 
-  // Unmark chats and hide bitton on click
+  // Unmark all chats and updateDeleteButton on click
   document.body.addEventListener('click', function(e) {
     [...document.querySelectorAll('.hw-marked')].map(e => e.classList.toggle('hw-marked'))
     updateDeleteButton();
@@ -82,12 +100,9 @@
   // Override fetch()
   (function() {
     const originalFetch = window.fetch;
-    window.fetch = async (...args) => {
-      const response = await originalFetch(...args);
-
-      const url = args?.[0];
-      const options = args?.[1] || {};
-      const headers = options.headers || {};
+    window.fetch = async (url, options = {}) => {
+      const response = await originalFetch(url, options);
+      const headers  = options.headers || {};
 
       if (headers.Authorization || headers.authorization) {
         httpAuthHeader = headers.Authorization || headers.authorization;
