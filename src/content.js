@@ -78,10 +78,15 @@ document.addEventListener('keydown', function (e) {
   }
 });  
 
-// toggle sidepanel on: ctrl + click on main
-//document.getElementsByTagName('main')[0]?.addEventListener('click', function (e) {
+// toggle sidepanel on: ctrl+click
 document.body.addEventListener('click', function (e) {
   e.ctrlKey && toggleSidePanel();
+});
+// toggle sidepanel on: middle-button
+document.body.addEventListener('mouseup', function (e) {
+  e.button == 1 && toggleSidePanel();
+  //e.preventDefault();
+  //e.stopPropagation()
 });
 
 //
