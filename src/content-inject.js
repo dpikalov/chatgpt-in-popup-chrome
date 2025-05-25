@@ -1,6 +1,26 @@
-﻿;(function () {
-  let httpAuthHeader = undefined;
+const originalFetch = window.fetch;
+let httpAuthHeader = undefined;
 
+// Override fetch()
+;(function() {
+
+  window.fetch = async function(input, init) {
+    let request;
+
+    if (input instanceof Request) {
+      request = input;
+    } else {
+      request = new Request(input, init);
+    }
+
+    httpAuthHeader ??= request?.headers?.get('authorization');
+    return originalFetch.call(this, request);
+  };
+
+})();
+
+/**/
+document.addEventListener("DOMContentLoaded", function() {
   // Custom CSS styles
   const style = document.createElement('style');
   style.textContent = ``;
@@ -38,7 +58,8 @@
       'Authorization': `${httpAuthHeader}`
     }
     const body = JSON.stringify({ is_visible: false })
-    return fetch(url, { method: 'PATCH', headers, body })
+    const resp = await originalFetch(url, { method: 'PATCH', headers, body })
+    return resp;
   }
 
   //
@@ -80,7 +101,7 @@
   // Toggle chat by right-click
   document.body.addEventListener('contextmenu', function(e) {
     const a = e.target.closest('a');
-    if (!a.matches('a[href*="/c/"]')) {
+    if (!a || !a.matches('a[href*="/c/"]')) {
       return
     }
 
@@ -97,18 +118,4 @@
     [...document.querySelectorAll('.hw-marked')].map(e => e.classList.toggle('hw-marked'))
     updateDeleteButton();
   });
-
-  // Override fetch()
-  (function() {
-    const originalFetch = window.fetch;
-    window.fetch = async (url, options = {}) => {
-      const response = await originalFetch(url, options);
-      const headers  = options.headers || {};
-
-      if (headers.Authorization || headers.authorization) {
-        httpAuthHeader = headers.Authorization || headers.authorization;
-      }
-      return response;
-    };
-  })();
-})();
+});

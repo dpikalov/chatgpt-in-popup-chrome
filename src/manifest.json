@@ -25,7 +25,13 @@
     {
       "matches": ["https://chatgpt.com/*"],
       "all_frames": true,
-      "js": ["content.js"]
+      "js": ["content-0.js"]
+    },
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "all_frames": true,
+      "js": ["content-1.js"],
+      "run_at": "document_start"
     }
   ],
 
