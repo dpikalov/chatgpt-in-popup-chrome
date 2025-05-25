@@ -79,9 +79,10 @@
 
   // Toggle chat by right-click
   document.body.addEventListener('contextmenu', function(e) {
-    const a = e.target.parentElement;
-    if (!a.matches('a[href*="/c/"]'))
-      return true;
+    const a = e.target.closest('a');
+    if (!a.matches('a[href*="/c/"]')) {
+      return
+    }
 
     a.classList.toggle('hw-marked');
     const count = getMarkedChatIds().length;
@@ -89,7 +90,7 @@
     updateDeleteButton(a, title);
 
     e.preventDefault();
-  }, true);
+  });
 
   // Unmark all chats and updateDeleteButton on click
   document.body.addEventListener('click', function(e) {
