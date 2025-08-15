@@ -1,6 +1,6 @@
-# chatgpt-in-popup-chrome
+# chrome-chatgpt-com
 
-This Chrome extension opens **https://chat.openai.com/** in the Side Panel and adds features like:
+This Chrome extension opens **https://chat.openai.com/** in the **Side Panel** and adds features like:
 - Auto blur when unfocused
 - Bulk chat deletion
 - Restore the last chat along with its scroll position (experimental)
