@@ -3,7 +3,6 @@ let httpAuthHeader = undefined;
 
 // Override fetch()
 ;(function() {
-
   window.fetch = async function(input, init) {
     let request;
 
@@ -16,6 +15,47 @@ let httpAuthHeader = undefined;
     httpAuthHeader ??= request?.headers?.get('authorization');
     return originalFetch.call(this, request);
   };
+})();
+
+// Restore chat and it's scroll position
+(() => {
+  const getChatUrl = ( ) => localStorage.getItem(`hw-chaturl`)
+  const setChatUrl = (v) => localStorage.setItem(`hw-chaturl`, v)
+
+  const getChatTop = ( ) => localStorage.getItem(`hw-top`)
+  const setChatTop = (v) => localStorage.setItem(`hw-top`, v)
+
+  // Restore saved pathname if any, but only if the page was loaded by extension (#hw)
+  if (getChatUrl() && location.pathname != getChatUrl() && location.hash == '#hw')
+    location.pathname = getChatUrl();
+
+  // Listen location.pathname change
+  let pathname = location.pathname;
+  setInterval(() => {
+    if (location.pathname != pathname)
+      setChatUrl(pathname = location.pathname)
+  }, 500);
+
+  const onPageReady = (callback) => {
+    const loading = (document.readyState == 'loading') 
+    loading ? document.addEventListener("DOMContentLoaded", callback) : callback()
+  }
+
+  // Restore saved scrollTop if any. Listen scrollTop change
+  onPageReady(async () => {
+    const wait = (ms) => new Promise(done => setTimeout(done, ms))
+    const cont = () => document.querySelector('article')?.parentElement?.parentElement
+    while (!cont()) await wait(500);
+
+    // give more time to the page
+    await wait(500)
+    cont().scrollTop = getChatTop() ?? cont().scrollTop;
+    await wait(500)
+    // 
+    cont().addEventListener('scroll', () => {
+      setChatTop(cont().scrollTop)
+    });
+  })
 
 })();
 

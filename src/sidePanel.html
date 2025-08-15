@@ -28,12 +28,17 @@
 
     iframe:hover {
       filter: brightness(.96) blur(0px);
+      transition-delay: 0s;
+    }
+
+    iframe:not(:hover) {
+      /*transition-delay: .3s;*/
     }
 
   </style>
 
 <body>
-  <iframe id="iframe" src="https://chatgpt.com" allow="clipboard-read; clipboard-write"> </iframe>
+  <iframe id="iframe" src="https://chatgpt.com/#hw" allow="clipboard-read; clipboard-write"> </iframe>
 </body>
 
 </html>
