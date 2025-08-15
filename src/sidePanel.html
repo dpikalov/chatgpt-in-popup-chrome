@@ -7,7 +7,8 @@
 
   <style type=text/css>
     :root {
-      --scale: 1;
+      --scale : 1;
+      --bright: .96;
       --border: 1px;
     }
 
@@ -22,17 +23,17 @@
     }
 
     iframe {
-      transition: filter .3s;
-      filter: brightness(1) blur(10px);
+      transition: filter .1s;
+      filter: brightness(var(--bright)) blur(10px);
     }
 
     iframe:hover {
-      filter: brightness(.96) blur(0px);
+      filter: brightness(var(--bright)) blur(0px);
       transition-delay: 0s;
     }
 
     iframe:not(:hover) {
-      /*transition-delay: .3s;*/
+      _transition-delay: .1s;
     }
 
   </style>
