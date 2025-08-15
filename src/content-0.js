@@ -15,14 +15,16 @@ const toggleSidePanel = () => {
   document.body.style.pointerEvents = 'unset';
 }
 
-// ctrl+k
+// ctrl+k - search panel
 document.addEventListener('keydown', function(e) {
-  if ((e.ctrlKey || e.metaKey) && ['K', 'k', 'Л', 'л'].includes(e.key)) {
+  if ((e.ctrlKey || e.metaKey) && ['Л', 'л'].includes(e.key)) {
     e.preventDefault();
+    const options = { key: 'k', code: 'KeyK', ctrlKey: true,  bubbles: true,  cancelable: true }
+    document.dispatchEvent(new KeyboardEvent('keydown', options));
   }
 });
 
-// toggle sidepanel on: ctrl+b
+// ctrl+b - toggle sidepanel
 document.addEventListener('keydown', function(e) {
   if ((e.ctrlKey || e.metaKey) && ['B', 'b', 'И', 'и'].includes(e.key)) {
     e.preventDefault();
@@ -30,7 +32,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// ctrl+enter
+// ctrl+enter - send
 document.addEventListener('keydown', function (e) {
   if (e.ctrlKey && e.key === 'Enter') {
     const btn = document.querySelectorAll('button[data-testid=send-button]')?.[0]
