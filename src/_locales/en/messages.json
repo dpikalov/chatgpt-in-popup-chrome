@@ -1,11 +1,11 @@
 {
   "manifest_name": {
-    "message": "Chrome-chatgpt-com"
+    "message": "Chatgpt.com in sidebar"
   },
   "manifest_description": {
-    "message": "Show ChatGPT in Side-panel"
+    "message": "Bulk chat deletion (right click to select). Automatically restore last chat position. Privacy blur (double click anywhere)"
   },
   "manifest_title": {
-    "message": "Show ChatGPT in Side-panel"
+    "message": "Chatgpt.com in the sidebar \n• Bulk chat deletion (right click to select)\n• Auto restore last chat position\n• Privacy blur (double click)"
   }
 }

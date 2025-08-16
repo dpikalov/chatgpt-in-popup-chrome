@@ -88,7 +88,11 @@ hw.onReady(function() {
     #hw-delete-btn {
       outline: 1px solid grey;
       margin-left: 8px;
+    }
+    .hw-blur {
+      filter: blur(4px);
     }`;
+
   document.head.appendChild(style)
 
   //
@@ -177,4 +181,10 @@ hw.onReady(function() {
     [...document.querySelectorAll('.hw-marked')].map(e => e.classList.toggle('hw-marked'))
     updateDeleteButton();
   });
+
+  // Toggle blur on double-click
+  document.body.addEventListener('dblclick', () => {
+    document.body.parentElement.classList.toggle('hw-blur')
+  });
+
 });
