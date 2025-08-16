@@ -3,7 +3,7 @@
 This Chrome extension opens **https://chat.openai.com/** in the **Side Panel** and adds features like: 
 
 • Bulk chat deletion (right-click to select chats)  
-• Restore the last chat and its scroll position  
+• Auto restore the last  
 • Privacy blur (activate with double-click anywhere)  
 
 <img src="https://github.com/dpikalov/chatgpt-in-popup-chrome/blob/main/artworks/screenshot.png?raw=true" width="50%">
