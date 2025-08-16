@@ -44,6 +44,17 @@ document.addEventListener('keydown', function (e) {
   }
 });  
 
+/*
+ ctrl+q - test
+document.addEventListener('keydown', function (e) {
+  if (e.ctrlKey && e.key === 'q') {
+    chrome.runtime.sendMessage({ action: "getActiveTab" }, (response) => {
+      console.log(response)
+    });
+  }
+});
+*/  
+
 // toggle sidepanel on: ctrl+click
 document.body.addEventListener('click', function (e) {
   e.ctrlKey && toggleSidePanel();

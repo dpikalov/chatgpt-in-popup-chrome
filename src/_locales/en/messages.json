@@ -3,9 +3,9 @@
     "message": "Chrome-chatgpt-com"
   },
   "manifest_description": {
-    "message": "Show ChatGPT in Side-pane."
+    "message": "Show ChatGPT in Side-panel"
   },
   "manifest_title": {
-    "message": "ChatGPT in Side-panel window"
+    "message": "Show ChatGPT in Side-panel"
   }
 }

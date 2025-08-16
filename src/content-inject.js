@@ -1,5 +1,24 @@
-const originalFetch = window.fetch;
-let httpAuthHeader = undefined;
+const hw = {
+  originalFetch : window.fetch.bind(window),
+  httpAuthHeader: undefined
+}
+
+hw.wait = async (ms) => {
+  return new Promise(done => setTimeout(done, ms))
+}
+
+hw.scrollContainer = () => {
+  return document.querySelector('article')?.parentElement?.parentElement
+}
+
+hw.onReady = (handler) => {
+  const cb = async () => {
+    while (!document.body) { await hw.wait(100); };
+    handler();
+  }
+  const loading = (document.readyState == 'loading') 
+  loading ? document.addEventListener("DOMContentLoaded", cb) : cb()
+}
 
 // Override fetch()
 ;(function() {
@@ -12,18 +31,15 @@ let httpAuthHeader = undefined;
       request = new Request(input, init);
     }
 
-    httpAuthHeader ??= request?.headers?.get('authorization');
-    return originalFetch.call(this, request);
+    hw.httpAuthHeader ??= request?.headers?.get('authorization');
+    return hw.originalFetch.call(this, request);
   };
 })();
 
-// Restore chat and it's scroll position
+// Restore last opened Chat URL. Set location.pathname listener
 (() => {
   const getChatUrl = ( ) => localStorage.getItem(`hw-chaturl`)
   const setChatUrl = (v) => localStorage.setItem(`hw-chaturl`, v)
-
-  const getChatTop = ( ) => localStorage.getItem(`hw-top`)
-  const setChatTop = (v) => localStorage.setItem(`hw-top`, v)
 
   // Restore saved pathname if any, but only if the page was loaded by extension (#hw)
   if (getChatUrl() && location.pathname != getChatUrl() && location.hash == '#hw')
@@ -31,36 +47,33 @@ let httpAuthHeader = undefined;
 
   // Listen location.pathname change
   let pathname = location.pathname;
-  setInterval(() => {
-    if (location.pathname != pathname)
+  setInterval(async () => {
+    if (location.pathname != pathname) {
       setChatUrl(pathname = location.pathname)
+    }
   }, 500);
-
-  const onPageReady = (callback) => {
-    const loading = (document.readyState == 'loading') 
-    loading ? document.addEventListener("DOMContentLoaded", callback) : callback()
-  }
-
-  // Restore saved scrollTop if any. Listen scrollTop change
-  onPageReady(async () => {
-    const wait = (ms) => new Promise(done => setTimeout(done, ms))
-    const cont = () => document.querySelector('article')?.parentElement?.parentElement
-    while (!cont()) await wait(500);
-
-    // give more time to the page
-    await wait(500)
-    cont().scrollTop = getChatTop() ?? cont().scrollTop;
-    await wait(500)
-    // 
-    cont().addEventListener('scroll', () => {
-      setChatTop(cont().scrollTop)
-    });
-  })
 
 })();
 
-/**/
-document.addEventListener("DOMContentLoaded", function() {
+// Restore scroll position. Set scroll listener
+hw.onReady(async () => {
+  const getChatTop = ( ) => localStorage.getItem(`hw-top`)
+  const setChatTop = (v) => localStorage.setItem(`hw-top`, v)
+
+  while (!hw.scrollContainer()) { await hw.wait(500) };
+  const container = hw.scrollContainer()
+  // give bit more time to the page
+  await hw.wait(500)
+  container.scrollTo({ top: getChatTop() ?? container.scrollTop, behavior: 'smooth' })
+  await hw.wait(500)
+  // 
+  hw.scrollContainer().addEventListener('scroll', () =>
+    setChatTop(hw.scrollContainer().scrollTop)
+  );
+})
+
+//
+hw.onReady(function() {
   // Custom CSS styles
   const style = document.createElement('style');
   style.textContent = ``;
@@ -99,10 +112,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const url = `https://chatgpt.com/backend-api/conversation/${id}`
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': `${httpAuthHeader}`
+      'Authorization': `${hw.httpAuthHeader}`
     }
     const body = JSON.stringify({ is_visible: false })
-    const resp = await originalFetch(url, { method: 'PATCH', headers, body })
+    const resp = await hw.originalFetch(url, { method: 'PATCH', headers, body })
     return resp;
   }
 
@@ -117,14 +130,16 @@ document.addEventListener("DOMContentLoaded", function() {
       if (button == undefined) {
         button = document.createElement('div');
         button.setAttribute('id', 'hw-delete-btn');
-        button.style.position = 'absolute';
-        button.style.background = '#000';
-        button.style.color = '#fff';
-        button.style.padding = '5px';
-        button.style.borderRadius = '4px';
-        button.style.zIndex = 10_000;
-        button.style.fontSize = '12px';
-        button.style.cursor = 'pointer';
+        button.style.cssText = `
+          position: absolute;
+          background: #000;
+          color: #fff;
+          padding: 5px;
+          border-radius: 4px;
+          z-index: 10000;
+          font-size: 12px;
+          cursor: pointer;
+        `;
         button.addEventListener('click', function(e) {
           deleteMarkedChats();
           e.stopPropagation()
@@ -142,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
       button.textContent = title;
   }
 
-  // Toggle chat by right-click
+  // Toggle chat selection by right-click
   document.body.addEventListener('contextmenu', function(e) {
     const a = e.target.closest('a');
     if (!a || !a.matches('a[href*="/c/"]')) {
