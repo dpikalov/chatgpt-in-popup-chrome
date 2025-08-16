@@ -66,7 +66,11 @@ document.addEventListener("DOMContentLoaded", function() {
   style.textContent = ``;
   style.textContent = `
     .hw-marked {
-      background-color: rgba(255, 192, 203, 0.4) !important;
+      background: linear-gradient(to bottom,
+        transparent 0px,
+        rgba(255, 192, 203, 0.4) 2px,
+        rgba(255, 192, 203, 0.4) calc(100% - 2px),
+        transparent 100%) !important;
     }
     #hw-delete-btn {
       outline: 1px solid grey;
