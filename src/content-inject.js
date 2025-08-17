@@ -161,30 +161,35 @@ hw.onReady(function() {
       button.textContent = title;
   }
 
+  // Unmark all chats and updateDeleteButton on click
+  document.body.addEventListener('click', e => {
+    [...document.querySelectorAll('.hw-marked')].map(e => e.classList.toggle('hw-marked'))
+    updateDeleteButton();
+  });
+
   // Toggle chat selection by right-click
-  document.body.addEventListener('contextmenu', function(e) {
+  document.body.addEventListener('contextmenu', e => {
     const a = e.target.closest('a');
     if (!a || !a.matches('a[href*="/c/"]')) {
       return
     }
+    e.preventDefault();
+    e.stopPropagation()
 
     a.classList.toggle('hw-marked');
     const count = getMarkedChatIds().length;
     const title = count ? `Click HERE to delete ${count} chats` : undefined
     updateDeleteButton(a, title);
-
-    e.preventDefault();
   });
 
-  // Unmark all chats and updateDeleteButton on click
-  document.body.addEventListener('click', function(e) {
-    [...document.querySelectorAll('.hw-marked')].map(e => e.classList.toggle('hw-marked'))
-    updateDeleteButton();
-  });
-
-  // Toggle blur on double-click
-  document.body.addEventListener('dblclick', () => {
+  // Toggle blur on ctrl + right-click
+  document.body.addEventListener('contextmenu', e => {
+    if (!e.ctrlKey/* || e.altKey || e.shiftKey*/) {
+      return
+    }
     document.body.parentElement.classList.toggle('hw-blur')
+    e.preventDefault();
+    e.stopPropagation()
   });
 
 });
