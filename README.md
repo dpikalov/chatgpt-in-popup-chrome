@@ -6,7 +6,7 @@ This Chrome extension adds extra features to **https://chatgpt.com/** and lets y
 - Auto load last chat in sidebar. Custom URL `/#last` does the same in regular tab  
 - Privacy blur - `double-click` anywhere to activate  
 
-<img src="https://github.com/dpikalov/chatgpt-in-popup-chrome/blob/main/artworks/recording.gif?raw=true" width="50%">
+<img src="https://github.com/dpikalov/chrome-chatgpt-com/blob/main/artworks/recording.gif?raw=true" width="50%">
 
 ## How to install it in Chrome
 - Clone the repo
