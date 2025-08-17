@@ -1,9 +1,9 @@
 {
   "manifest_name": {
-    "message": "Chatgpt.com in sidebar"
+    "message": "ChatGPT Enhancements + Sidebar"
   },
   "manifest_description": {
-    "message": "Bulk chat deletion (use right-click to select chats). Auto load last chat. Privacy blur (double-click anywhere)"
+    "message": "Bulk chat deletion (right-click to select chats). Auto load last chat. Privacy blur (double-click)"
   },
   "manifest_title": {
     "message": "Chatgpt.com in the sidebar \n• Bulk chat deletion (right-click to select chats)\n• Auto load last chat using custom URL /#last\n• Privacy blur (double-click anywhere)\n"

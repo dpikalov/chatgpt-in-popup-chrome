@@ -1,4 +1,4 @@
-# chrome-chatgpt-com
+# Chrome ChatGPT Enhancements + Sidebar
 
 This Chrome extension adds extra features to **https://chatgpt.com/** and lets you run it in the Side Panel:
 
