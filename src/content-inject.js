@@ -36,13 +36,13 @@ hw.onReady = (handler) => {
   };
 })();
 
-// Restore last opened Chat URL. Set location.pathname listener
+// Open the most recent chat if needed. Set location.pathname listener
 (() => {
   const getChatUrl = ( ) => localStorage.getItem(`hw-chaturl`)
   const setChatUrl = (v) => localStorage.setItem(`hw-chaturl`, v)
 
-  // Restore saved pathname if any, but only if the page was loaded by extension (#hw)
-  if (getChatUrl() && location.pathname != getChatUrl() && location.hash == '#hw')
+  // Handle URL /#last - load most recent chat if any 
+  if (getChatUrl() && location.pathname != getChatUrl() && location.hash == '#last')
     location.pathname = getChatUrl();
 
   // Listen location.pathname change

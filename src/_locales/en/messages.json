@@ -3,9 +3,9 @@
     "message": "Chatgpt.com in sidebar"
   },
   "manifest_description": {
-    "message": "Bulk chat deletion (right click to select). Automatically restore last chat position. Privacy blur (double click anywhere)"
+    "message": "Bulk chat deletion (use right-click to select chats). Auto load last chat. Privacy blur (double-click anywhere)"
   },
   "manifest_title": {
-    "message": "Chatgpt.com in the sidebar \n• Bulk chat deletion (right click to select)\n• Auto restore last chat position\n• Privacy blur (double click)"
+    "message": "Chatgpt.com in the sidebar \n• Bulk chat deletion (right-click to select chats)\n• Auto load last chat using custom URL /#last\n• Privacy blur (double-click anywhere)\n"
   }
 }
