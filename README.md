@@ -5,7 +5,6 @@ This Chrome extension adds extra features to **https://chatgpt.com/** and lets y
 - Bulk chat deletion - `right-click` to select chats  
 - Auto load last chat in sidebar. Custom URL `/#last` does the same in regular tab  
 - Privacy blur - `double-click` anywhere to activate  
-- Toggle ChatGPT's sidebar with `Ctrl+B`
 
 <img src="https://github.com/dpikalov/chatgpt-in-popup-chrome/blob/main/artworks/screenshot.png?raw=true" width="50%">
 
