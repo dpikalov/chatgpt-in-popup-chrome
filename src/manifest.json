@@ -13,7 +13,7 @@
   },
 
   "permissions": [
-    "declarativeNetRequest", "tabs", "storage", "sidePanel", "activeTab", "clipboardRead", "clipboardWrite", "scripting"
+    "declarativeNetRequest", "storage", "sidePanel", "clipboardRead", "clipboardWrite", "scripting"
   ],
 
   "side_panel": {

@@ -45,7 +45,7 @@ document.addEventListener('keydown', function (e) {
 });  
 
 /*
- ctrl+q - test
+ ctrl+q - test. TBD require permissions "tabs", "activeTab"
 document.addEventListener('keydown', function (e) {
   if (e.ctrlKey && e.key === 'q') {
     chrome.runtime.sendMessage({ action: "getActiveTab" }, (response) => {

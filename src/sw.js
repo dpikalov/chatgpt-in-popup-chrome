@@ -1,5 +1,6 @@
 chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })
 
+// TBD require permissions "tabs", "activeTab"
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "getActiveTab") {
     // query the active tab
