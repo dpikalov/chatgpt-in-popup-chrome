@@ -1,9 +1,8 @@
-# Chrome ChatGPT Enhancements + Sidebar
-
+# Chrome ChatGPT Enhancements + Sidepanel
 This Chrome extension adds extra features to **https://chatgpt.com/** and lets you run it in the Side Panel:
 
 - **Bulk chat deletion** - `right-click` to select chats  
-- **Auto load last chat** in sidebar. Custom URL `/#last` does the same in regular tab  
+- **Auto load last chat** in sidepanel. Custom URL `/#last` does the same in regular tab  
 - **Privacy blur** - `double-click` anywhere to activate
 - **Enhanced security** - iframe isolation (sidepanel mode) prevents other extensions from accessing your chats
 
